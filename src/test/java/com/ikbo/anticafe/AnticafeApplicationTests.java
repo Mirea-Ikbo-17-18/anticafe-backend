@@ -8,6 +8,7 @@ class AnticafeApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
