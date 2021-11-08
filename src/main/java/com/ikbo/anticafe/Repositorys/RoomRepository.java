@@ -1,6 +1,6 @@
 package com.ikbo.anticafe.Repositorys;
 
-import com.ikbo.anticafe.Model.Room;
+import com.ikbo.anticafe.Models.Room;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

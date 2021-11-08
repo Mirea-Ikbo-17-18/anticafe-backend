@@ -1,4 +1,4 @@
-package com.ikbo.anticafe.Model.Enums;
+package com.ikbo.anticafe.Models.Enums;
 
 public enum Permission {
     DEVELOPERS_READ("developers:read"),

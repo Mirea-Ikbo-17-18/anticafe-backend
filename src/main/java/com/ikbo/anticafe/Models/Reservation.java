@@ -1,4 +1,4 @@
-package com.ikbo.anticafe.Model;
+package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -42,7 +41,5 @@ public class Reservation {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
     private KitOptions kitOptions;
 
-    public Reservation() {
-
-    }
+    public Reservation() {}
 }

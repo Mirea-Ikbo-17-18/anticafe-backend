@@ -1,4 +1,4 @@
-package com.ikbo.anticafe.Model;
+package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +23,5 @@ public class KitOptions {
     @OneToMany(mappedBy = "kit_options", fetch = FetchType.LAZY)
     private List<Option> options;
 
-    public KitOptions() {
-
-    }
+    public KitOptions() {}
 }

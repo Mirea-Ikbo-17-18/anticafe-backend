@@ -1,14 +1,13 @@
-package com.ikbo.anticafe.Model;
+package com.ikbo.anticafe.Models;
 
-import com.ikbo.anticafe.Model.Enums.Role;
-import com.ikbo.anticafe.Model.Enums.Status;
+import com.ikbo.anticafe.Models.Enums.Role;
+import com.ikbo.anticafe.Models.Enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Data
@@ -58,7 +57,5 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Reservation reservation;
 
-    public User() {
-
-    }
+    public User() {}
 }

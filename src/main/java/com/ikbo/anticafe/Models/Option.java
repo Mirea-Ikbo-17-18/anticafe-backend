@@ -1,4 +1,4 @@
-package com.ikbo.anticafe.Model;
+package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "rooms")
-public class Room {
+@Table(name = "options")
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -28,25 +28,13 @@ public class Room {
     private String description;
 
     @NotBlank(message = "Field is empty!")
-    @Size(min = 3, max = 5, message = "Field too big or small")
+    @Size(min = 3, max = 6, message = "Field too big or small")
     @Column(name = "cost")
     private Integer cost;
 
-    @NotBlank(message = "Field is empty!")
-    @Size(min = 18, max = 30, message = "Field too big or small")
-    @Column(name = "start")
-    private String start;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kit_options")
+    private KitOptions kit_options;
 
-    @NotBlank(message = "Field is empty!")
-    @Size(min = 18, max = 30, message = "Field too big or small")
-    @Column(name = "finish")
-    private String finish;
-
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "reservation_id", nullable = false)
-    private Reservation reservation;
-
-    public Room() {
-
-    }
+    public Option() {}
 }

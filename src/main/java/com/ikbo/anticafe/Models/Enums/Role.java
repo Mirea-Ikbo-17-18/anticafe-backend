@@ -1,4 +1,4 @@
-package com.ikbo.anticafe.Model.Enums;
+package com.ikbo.anticafe.Models.Enums;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
