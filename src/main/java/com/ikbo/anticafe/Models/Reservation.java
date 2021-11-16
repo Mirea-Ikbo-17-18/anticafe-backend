@@ -2,6 +2,7 @@ package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "reservations")
 public class Reservation {
     @Id
@@ -34,12 +36,30 @@ public class Reservation {
     @Column(name = "cost")
     private Integer cost;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToOne(cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name = "usr", nullable = true)
+    private User usr;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
     private KitOptions kitOptions;
 
-    public Reservation() {}
+    @NotBlank(message = "Field is empty!")
+    @Size(min = 3, max = 64, message = "Field too big or small")
+    @Column(name = "email")
+    private String email;
+
+    @NotBlank(message = "Field is empty!")
+    @Size(min = 11, max = 12, message = "Field too big or small")
+    @Column(name = "number")
+    private String number;
+
+    @NotBlank(message = "Field is empty!")
+    @Size(min = 3, max = 25, message = "Field too big or small")
+    @Column(name = "firstname")
+    private String firstname;
+
+    @NotBlank(message = "Field is empty!")
+    @Size(min = 3, max = 25, message = "Field too big or small")
+    @Column(name = "lastname")
+    private String lastname;
 }

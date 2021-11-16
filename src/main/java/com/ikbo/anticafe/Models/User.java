@@ -4,14 +4,17 @@ import com.ikbo.anticafe.Models.Enums.Role;
 import com.ikbo.anticafe.Models.Enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -54,8 +57,6 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Reservation reservation;
-
-    public User() {}
+    @OneToMany(fetch = FetchType.LAZY, /*cascade = CascadeType.ALL,*/ mappedBy = "usr")
+    private List<Reservation> reservation;
 }

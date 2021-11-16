@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/cafe")
+@RequestMapping()
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
