@@ -1,0 +1,186 @@
+Формат:
+Описание запроса
+Эндпоинт(конечная точка)
+Метод
+Заголовок
+JSON запроса
+JSON ответа
+
+Регистрация аккаунта
+/register
+POST
+Нет
+JSON запроса
+{
+  email: str,
+  password: str
+}
+JSON ответа
+{
+  token: str
+}
+
+Вход в аккаунт
+/login
+POST
+Нет
+JSON запроса
+{
+  email: str,
+  password: str,
+  is_admin: bool
+}
+JSON ответа
+{
+  token: str
+}
+
+Получение данных пользователя (Владельца токена)
+/user
+GET
+headers={"Authorization": "Bearer {token}"}
+Нет
+JSON ответа
+{
+  firstname: str | null,
+  lastname: str | null,
+  email: str,
+  number: str | null,
+}
+
+Изменение данных пользователя (Владельца токена)
+/users
+PATCH
+headers={"Authorization": "Bearer {token}"}
+JSON запроса
+{
+  firstname: Optional[str],
+  lastname: Optional[str],
+  number: Optional[str],
+}
+JSON ответа
+Любой
+
+Получение списка комнат
+/rooms
+GET
+Нет
+Нет
+JSON ответа
+{
+  id: int,
+  name: str,
+  description: str,
+  cost: int,
+  start: int,
+  finish: int,
+  options: [{
+    id: int,
+    cost: int,
+    name: str,
+    description: str
+  }]
+}
+
+Получение доступного времени для бронирования комнаты
+/roomtime
+GET
+Нет
+JSON запроса
+{
+  id: int
+}
+JSON ответа
+[
+  {
+    day: str //format "yyyy-mm-dd"
+    times: [int] //Часы, которые доступны для бронирования(по типу [9, 10, 12, 13])
+  }
+]
+
+Получение броней пользователя (Владельца токена)
+/reservations
+GET
+headers={"Authorization": "Bearer {token}"}
+Нет
+JSON ответа
+[{
+  firstname: str | null,
+  lastname: str | null,
+  email: str | null,
+  number: str | null,
+  start: str //format "yyyy-mm-ddThh:00" например "2021-11-16T18:00",
+  finish: str //format "yyyy-mm-ddThh:00"
+  cost: int,
+  options: [int] //list of ids
+}]
+
+Бронирование комнаты
+/reservation
+POST
+Optional[headers={"Authorization": "Bearer {token}"}] (Если указываю токен, значит бронирует авторизированный пользователь(владелец токена))
+JSON запроса
+{
+  id: int
+  start: str //format "yyyy-mm-ddThh:00" например "2021-11-16T18:00",
+  finish: str //format "yyyy-mm-ddThh:00",
+  cost: int,
+  options: [int] //list of ids,
+  firstname: str | null,
+  lastname: str | null,
+  email: str | null,
+  number: str
+}
+JSON ответа
+Любой
+
+Удаление брони (как админ, так и авторизированный пользователь)
+/reservation
+DELETE
+headers={"Authorization": "Bearer {token}"}
+JSON запроса
+{
+  id: int
+}
+JSON ответа
+Любой
+
+Получение всех броней (для администратора)
+/allreservations
+GET
+headers={"Authorization": "Bearer {token}"} (токен админа)
+Нет
+JSON ответа
+[{
+  firstname: str,
+  lastname: str,
+  email: str | null,
+  number: str,
+  start: str //format "yyyy-mm-ddThh:00" например "2021-11-16T18:00",
+  finish: str //format "yyyy-mm-ddThh:00"
+  cost: int,
+  options: [int] //list of ids
+}]
+
+Изменение данных комнаты (для админа)
+/room
+PATCH
+headers={"Authorization": "Bearer {token}"}
+JSON запроса
+{
+  id: int,
+  name: Optional[str],
+  description: Optional[str],
+  cost: Optional[int],
+  start: Optional[int],
+  finish: Optional[int],
+  options: Optional[[int]]
+}
+JSON ответа
+Любой
+
+TODO: Получение статистики в виде csv (для админа)
+/statistics
+GET
+headers={"Authorization": "Bearer {token}"}
+Не понятно
