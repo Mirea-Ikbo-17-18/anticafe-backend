@@ -20,7 +20,7 @@ public class Reservation {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
+    @OneToOne(/*fetch = FetchType.LAZY, */cascade = CascadeType.ALL, mappedBy = "reservation")
     private Room room;
 
     @NotBlank(message = "Field is empty!")
