@@ -23,8 +23,6 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    //@NotBlank(message = "")
-    //@Size(min = , max = , message = "")
     @NotBlank(message = "Field is empty!")
     @Size(min = 3, max = 25, message = "Field too big or small")
     @Column(name = "firstname")
@@ -58,6 +56,6 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(fetch = FetchType.LAZY, /*cascade = CascadeType.ALL,*/ mappedBy = "usr")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usr")
     private List<Reservation> reservation;
 }

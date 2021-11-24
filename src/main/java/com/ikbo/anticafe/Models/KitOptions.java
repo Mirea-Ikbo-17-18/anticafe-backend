@@ -2,12 +2,14 @@ package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "kit")
 public class KitOptions {
@@ -16,12 +18,10 @@ public class KitOptions {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "reservation_id", nullable = false)
-    private Reservation reservation;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kit_reservation_id")
+    private Reservation kit_reservation_id;
 
     @OneToMany(mappedBy = "kit_options", fetch = FetchType.LAZY)
     private List<Option> options;
-
-    public KitOptions() {}
 }

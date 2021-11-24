@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @AllArgsConstructor
-    public class UserReqData {
+    public static class UserReqData { //было не static
         public String firstName;
         public String lastName;
         public String email;
@@ -52,25 +52,6 @@ public class UserController {
         userRepository.save(updatedUserTemp);
     }
 
-    /*@GetMapping("/reservations")
-    public List<Reservation>*//*тип неясен*//* getUserReservation(){
-        return ;
-    }*/
-
-    @PostMapping("/reservation")
-    public void postReservation(@RequestBody Reservation reservation){
-
-    }
-
-    @DeleteMapping("/reservation")
-    public void deleteReservation(@RequestBody Reservation reservation){
-
-    }
-
-    /*@GetMapping("/allreservations")
-    public List<Reservation> getAllReservations(){
-        return ;
-    }*/
 
 
 }

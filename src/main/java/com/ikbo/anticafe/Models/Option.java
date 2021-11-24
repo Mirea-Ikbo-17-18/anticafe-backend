@@ -2,6 +2,7 @@ package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "options")
 public class Option {
     @Id
@@ -35,6 +37,4 @@ public class Option {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "kit_options")
     private KitOptions kit_options;
-
-    public Option() {}
 }

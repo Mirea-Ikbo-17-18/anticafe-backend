@@ -2,14 +2,17 @@ package com.ikbo.anticafe.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rooms")
 public class Room {
@@ -36,16 +39,14 @@ public class Room {
     @NotBlank(message = "Field is empty!")
     @Size(min = 18, max = 30, message = "Field too big or small")
     @Column(name = "start")
-    private String start;
+    private Date start;
 
     @NotBlank(message = "Field is empty!")
     @Size(min = 18, max = 30, message = "Field too big or small")
     @Column(name = "finish")
-    private String finish;
+    private Date finish;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "reservation_id", nullable = false)
-    private Reservation reservation;
-
-    public Room() {}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_reservation_id")
+    private Reservation room_reservation_id;
 }

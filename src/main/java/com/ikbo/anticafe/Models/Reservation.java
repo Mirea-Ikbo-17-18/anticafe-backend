@@ -20,7 +20,10 @@ public class Reservation {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(/*fetch = FetchType.LAZY, */cascade = CascadeType.ALL, mappedBy = "reservation")
+    @OneToOne(mappedBy = "kit_reservation_id")
+    private KitOptions kitOptions;
+
+    @OneToOne(mappedBy = "room_reservation_id")
     private Room room;
 
     @NotBlank(message = "Field is empty!")
@@ -36,29 +39,25 @@ public class Reservation {
     @Column(name = "cost")
     private Integer cost;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = true)
-    @JoinColumn(name = "usr", nullable = true)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usr")
     private User usr;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
-    private KitOptions kitOptions;
 
-    @NotBlank(message = "Field is empty!")
+
+    ////////////////////////////////////////////////////////////////////////
     @Size(min = 3, max = 64, message = "Field too big or small")
     @Column(name = "email")
     private String email;
 
-    @NotBlank(message = "Field is empty!")
     @Size(min = 11, max = 12, message = "Field too big or small")
     @Column(name = "number")
     private String number;
 
-    @NotBlank(message = "Field is empty!")
     @Size(min = 3, max = 25, message = "Field too big or small")
     @Column(name = "firstname")
     private String firstname;
 
-    @NotBlank(message = "Field is empty!")
     @Size(min = 3, max = 25, message = "Field too big or small")
     @Column(name = "lastname")
     private String lastname;
