@@ -1,58 +1,40 @@
 package com.ikbo.anticafe.Controllers;
 
-import com.ikbo.anticafe.Models.Reservation;
 import com.ikbo.anticafe.Models.Room;
 import com.ikbo.anticafe.Repositorys.RoomRepository;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.ikbo.anticafe.Services.Room.RoomService;
+import com.ikbo.anticafe.Services.Room.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class RoomController {
     private final RoomRepository roomRepository;
+    private final RoomService roomService;
 
     @Autowired
-    public RoomController(RoomRepository roomRepository) {
+    public RoomController(RoomRepository roomRepository, RoomService roomService) {
         this.roomRepository = roomRepository;
-    }
-
-    @FunctionalInterface
-    private interface View {
-        @Data
-        @AllArgsConstructor
-        class ViewRoom{
-            private Long id;
-            private String name;
-            private String description;
-            private Integer cost;
-            private Date start;
-            private Date finish;
-            private Long room_reservation_id;
-        }
-        ViewRoom transformRoom(Room room);
+        this.roomService = roomService;
     }
 
     @GetMapping("/rooms")
     public List<View.ViewRoom> getRooms(){
-        Collection<Room> roomCollection = (Collection<Room>) roomRepository.findAll();
-        View view = (room) -> new View.ViewRoom(room.getId(), room.getName(), room.getDescription(), room.getCost(),
-                                                room.getStart(), room.getFinish(), room.getRoom_reservation_id().getId());
-        return roomCollection.stream().map(view::transformRoom).collect(Collectors.toList());
+        return roomService.getElements();
     }
 
     @GetMapping("/roomtime")
-    public void getRoomTime(int id) { /*возможно взаимодействие с id по url(мысли в текст)*/
-        Room room = this.roomRepository.findById((long) id).get();
+    public void getRoomTime(@RequestBody Integer idRoom) { /*возможно взаимодействие с id по url(мысли в текст)*/
+        //Room room = this.roomRepository.findById((long) id).get();
+
+        //day: str //format "yyyy-mm-dd"
+        //...
+
+        //times: [int] //Часы, которые доступны для бронирования(по типу [9, 10, 12, 13])
+        roomService.getTimes(idRoom);
+
     }
 
     @PatchMapping("/room")

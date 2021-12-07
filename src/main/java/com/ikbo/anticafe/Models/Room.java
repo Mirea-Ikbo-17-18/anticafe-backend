@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -46,7 +47,18 @@ public class Room {
     @Column(name = "finish")
     private Date finish;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+    ////////////////
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "rm")
+    private List<Reservation> reservation;
+
+
+    /*@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_reservation_id")
-    private Reservation room_reservation_id;
+    private Reservation room_reservation_id;*/
+
+    ////////////////
+
+
 }

@@ -23,8 +23,18 @@ public class Reservation {
     @OneToOne(mappedBy = "kit_reservation_id")
     private KitOptions kitOptions;
 
-    @OneToOne(mappedBy = "room_reservation_id")
-    private Room room;
+
+    ///////////////////
+
+    /*@OneToOne(mappedBy = "room_reservation_id")
+    private Room room;*/
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rm")
+    private Room rm ;
+
+    ///////////////////
+
 
     @NotBlank(message = "Field is empty!")
     @Column(name = "start")
