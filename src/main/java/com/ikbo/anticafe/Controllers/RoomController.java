@@ -26,16 +26,6 @@ public class RoomController {
         this.roomRepository = roomRepository;
     }
 
-    private static class RoomReservationTime {
-        public String day;
-        public ArrayList<Integer> times;
-
-        RoomReservationTime(String _day, ArrayList<Integer> _times) {
-            this.day = _day;
-            this.times = _times;
-        }
-    }
-
     @FunctionalInterface
     private interface View {
         @Data
@@ -60,10 +50,9 @@ public class RoomController {
         return roomCollection.stream().map(view::transformRoom).collect(Collectors.toList());
     }
 
-    // TODO: Для комнаты можно удалить Finish и Start колноки из таблицы
-    @GetMapping(path = "/roomtime", params = {"id"})
-    public RoomReservationTime getRoomTime(@RequestParam("id") Long id){ /*возможно взаимодействие с id по url(мысли в текст)*/
-        return new RoomReservationTime(this.roomRepository.findById(id).get().getName(), new ArrayList<>());
+    @GetMapping("/roomtime")
+    public void getRoomTime(int id) { /*возможно взаимодействие с id по url(мысли в текст)*/
+        Room room = this.roomRepository.findById((long) id).get();
     }
 
     @PatchMapping("/room")
