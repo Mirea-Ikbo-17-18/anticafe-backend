@@ -1,5 +1,5 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  backend:
-    image: ghcr.io/temchik00/anticafe/backend
+    backend:
+        image: ghcr.io/mirea-ikbo-17-18/anticafe/backend
